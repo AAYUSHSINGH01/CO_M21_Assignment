@@ -96,13 +96,17 @@ for line in stdin:
     a = line.split(" ")
     if a[-1] != "hlt":
       a[-1]=a[-1][:-1]
-    if a[0][len(a[0])-1]==":":  #find label,save binary, remove label
+    if a[0][-1]==":":  #find label,save binary, remove label
         a[0] = a[0][:-1]
         label[a[0]] = immbin(str(l))
         a.pop(0)
+    if len(a)==0:
+        sys.stdout.write("EMPTY LABEL")
+        quit()
+
     if a[0] == "var": #find variable save variable in list 
         if(l>0): 
-            print("Variable declared in between code in line "+ str(l))
+            print("VARIABLE DECLARED IN BETWEEN CODE IN LINE "+ str(l))
             quit()
         var.append(a[1])
         continue
@@ -111,11 +115,11 @@ for line in stdin:
 
 for a in b[:len(b)-1]:
     if a[0] == "hlt": 
-        print("hlt in between code in line "+ str(l))
+        print("hlt IS IN BETWEEN LINE IN LINE "+ str(l))
         quit()
 
 if b[-1][-1] != "hlt": 
-    print("no hlt")
+    print("NO hlt")
     quit()
 
 if len(var)>0:
